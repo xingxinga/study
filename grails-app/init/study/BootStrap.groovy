@@ -82,8 +82,19 @@ class BootStrap {
             new TypeKeyValue(type:TypeKeyValue.regionType,ke:TypeKeyValue.regionTypeHearing,value:"听力区").save()
         }
 
+        if(!TypeKeyValue.findByTypeAndKe(TypeKeyValue.ageType,TypeKeyValue.ageTypeYoung)){
+            new TypeKeyValue(type:TypeKeyValue.ageType,ke:TypeKeyValue.ageTypeYoung,value:"少儿").save()
+        }
+        if(!TypeKeyValue.findByTypeAndKe(TypeKeyValue.ageType,TypeKeyValue.ageTypeAdult)){
+            new TypeKeyValue(type:TypeKeyValue.ageType,ke:TypeKeyValue.ageTypeAdult,value:"成年").save()
+        }
+
         if(!TypeKeyValue.findByTypeAndKe(TypeKeyValue.addressTyeo,TypeKeyValue.localAddress)){
-            new TypeKeyValue(type:TypeKeyValue.addressTyeo,ke:TypeKeyValue.localAddress,value:"http://localhost:8080").save()
+            new TypeKeyValue(type:TypeKeyValue.addressTyeo,ke:TypeKeyValue.localAddress,value:"https://herongnizi.cn").save()
+        }
+
+        if(Notice.findAll().size()==0){
+            new Notice(title:"123",content:"123").save()
         }
 
         if(User.count() == 0){

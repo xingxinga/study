@@ -5,7 +5,7 @@ class TypeKeyValue {
     public static String menuType = "menuType"
     public static String fileType = "fileType"
     public static String regionType = "regionType"
-
+    public static String ageType = "ageType"
 
     public static String menuTypePhonics = "1"//自然拼读
     public static String menuTypePronunciation = "2"//发音训练
@@ -22,6 +22,9 @@ class TypeKeyValue {
     public static String regionTypeStudy = "1" // 学习区
     public static String regionTypeExercise = "2"//练习区
     public static String regionTypeHearing = "3"//听力区
+
+    public static String ageTypeYoung = "1" // 少儿
+    public static String ageTypeAdult = "2"// 成年
 
     public static String addressTyeo = "address"
     public static String localAddress = "1"

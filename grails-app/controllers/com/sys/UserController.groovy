@@ -57,6 +57,10 @@ class UserController {
         respond user
     }
 
+    def my(User user) {
+        respond user
+    }
+
     @Transactional
     def update(User user) {
         if (user == null) {
@@ -72,18 +76,19 @@ class UserController {
         }
 
         user.save flush:true
-        UserRole userRole = null
-        if(user.vip){
-            def role = Role.findByAuthority("ROLE_VIP")
-            userRole = UserRole.findByUser(user)
-            userRole.role = role
-
-        }else{
-            def role = Role.findByAuthority("ROLE_USER")
-            userRole = UserRole.findByUser(user)
-            userRole.role = role
+        def userRole = UserRole.findAllByUser(user)
+        UserRole userRoleVIP = null
+        def roleVIP = Role.findByAuthority("ROLE_VIP")
+        userRole.each {
+            if(it.role.equals(roleVIP)){
+                userRoleVIP = it
+            }
         }
-        userRole.save flush:true
+        if(user.vip&&!userRoleVIP){
+            UserRole.create user, roleVIP
+        }else if(!user.vip&&userRoleVIP){
+            userRoleVIP.delete()
+        }
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])

@@ -47,10 +47,10 @@ class User implements Serializable {
         User user = new User()
         user.weiXinUser = weiXinUser
         user.username = weiXinUser.openId
-        user.password = RandomStringUtils.randomAlphanumeric(10);
+        user.password = BootStrap.defaultUserPassword
         user.vip = false
         user.save flush:true
-        def role = Role.findByAuthority("ROLE_VIP")
+        def role = Role.findByAuthority("ROLE_USER")
         new UserRole(user:user,role:role).save flush:true
         return user
     }

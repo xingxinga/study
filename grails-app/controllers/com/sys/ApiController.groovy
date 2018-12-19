@@ -8,6 +8,7 @@ import study.BootStrap
 import study.Comment
 import study.Data
 import study.Notice
+import study.PhonicsData
 import study.TypeKeyValue
 import util.WeiXinService
 
@@ -50,9 +51,16 @@ class ApiController {
     /**
      * 获取数据列表
      */
-    def listData(String typeId){
+    def listData(String typeId,String typeAgeId){
         TypeKeyValue typeDate = TypeKeyValue.get(typeId)
-        def list = Data.findAllByTypeDate(typeDate)
+        def list = null;
+        if(typeAgeId==null){
+            list = Data.findAllByTypeDate(typeDate)
+        }
+        else {
+            TypeKeyValue typeAge = TypeKeyValue.get(typeAgeId)
+            list = PhonicsData.findAllByTypeDateAndTypeAge(typeDate,typeAge)
+        }
         list.each {
             it.pictureList = null;
             it.file = null;
@@ -111,13 +119,24 @@ class ApiController {
         def list = Comment.findAllByData(data)
         def listData = []
         list.each {
-            def userInfo =  WeiXinUser.findByUser(it.user)
+            //def userInfo =  WeiXinUser.findByUser(it.user)
+            def userInfo =  WeiXinUser.get(it.user.weiXinUser.id)
             if(userInfo){
-                def dataMap = ["content":it.content,"dateCreated":it.dateCreated,"userName":userInfo.nickname,"headImgUrl":userInfo.headimgurl]
                 listData.add(dataMap)
             }
         }
         respond status:"200", data:listData
+    }
+
+    def addScan(String id){
+        def data = Data.get(id)
+        if(!data){
+            respond status:"404", message:"null data"
+            return
+        }
+        data.scan = data.scan+1
+        data.save flush:true
+        respond status:"200"
     }
 
 }

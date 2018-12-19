@@ -83,6 +83,12 @@
                 </label>
                 <g:select from="${TypeKeyValue.findAllByType(TypeKeyValue.regionType)}" optionKey="id" optionValue="value" name="typeRegion" value="${phonicsData.typeRegion.id}"></g:select>
             </div>
+            <div class='fieldcontain required'>
+                <label for='typeAge'>
+                    年龄划分
+                </label>
+                <g:select from="${TypeKeyValue.findAllByType(TypeKeyValue.ageType)}" value="${phonicsData?.typeAge?.id}" optionKey="id" optionValue="value" name="typeAge"></g:select>
+            </div>
             <f:field bean="phonicsData" property="vip" value="${phonicsData.vip}" label="${message(code: 'data.vip.label', default: 'vip')}"/>
             <div hidden>
                 <input type="text" id="image" name="image" value="${phonicsData.image}">
