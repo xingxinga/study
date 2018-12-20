@@ -19,7 +19,6 @@ class ApiController {
 
     @Secured('permitAll')
     def getTypeKeyValue(){
-        AuthenticationToken.findByTokenValue()
         def list = TypeKeyValue.findAll()
         respond status:"200",data:list
     }
