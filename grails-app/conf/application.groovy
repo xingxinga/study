@@ -34,9 +34,6 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 
 
 
-/*grails.rest.injectInto = ["Controller", "Service", "Routes"]
-grails.plugin.springsecurity.rememberMe.persistent = true
-grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'com.sys.PersistentLogin'*/
 
 grails.plugin.springsecurity.rest.login.useJsonCredentials = true
 grails.plugin.springsecurity.rest.token.storage.useGorm = true
@@ -51,3 +48,5 @@ grails.plugin.springsecurity.rest.login.failureStatusCode = 401
 grails.plugin.springsecurity.rest.login.useRequestParamsCredentials = true
 grails.plugin.springsecurity.rest.login.usernamePropertyName = "username"
 grails.plugin.springsecurity.rest.login.passwordPropertyName = "password"
+
+grails.plugin.springsecurity.useSecurityEventListener = true

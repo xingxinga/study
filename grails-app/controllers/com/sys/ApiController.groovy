@@ -19,6 +19,7 @@ class ApiController {
 
     @Secured('permitAll')
     def getTypeKeyValue(){
+        AuthenticationToken.findByTokenValue()
         def list = TypeKeyValue.findAll()
         respond status:"200",data:list
     }
@@ -122,6 +123,7 @@ class ApiController {
             //def userInfo =  WeiXinUser.findByUser(it.user)
             def userInfo =  WeiXinUser.get(it.user.weiXinUser.id)
             if(userInfo){
+                def dataMap = ["content":it.content,"dateCreated":it.dateCreated,"userName":userInfo.nickName,"headImgUrl":userInfo.avatarUrl]
                 listData.add(dataMap)
             }
         }
